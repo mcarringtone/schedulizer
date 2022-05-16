@@ -5,3 +5,7 @@
 
 var momentTime = moment().startOf("day").add(7, "hour");
 var hour = moment().format("H");
+
+for (var i = 8; i < 20; i++) {
+    var timeSlot = momentTime.add(1, "hour").format("HH:mm A");
+    var currentState;
