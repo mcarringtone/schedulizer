@@ -1,40 +1,12 @@
-{
-  var day = moment().format("llll");
-  $("#currentDay").append(day);
-}
+var $containerBlock = $(".container");
 
-var momentTime = moment().startOf("day").add(7, "hour");
-var hour = moment().format("H");
-
-for (var i = 8; i < 20; i++) {
-  var timeSlot = momentTime.add(1, "hour").format("HH:mm A");
-  var currentState;
-
-  if (hour == i) {
-    currentState = "present";
-  } else if (hour > i) {
-    currentState = "future";
-  } else if (hour < i) {
-    currentState = "past";
+var $thisContainer = $containerBlock[0];
+for (var i = 0; i <= 8; i++) {
+  // console.log($($thisContainer).children()[i])
+  var $thisInputDiv = $($($($thisContainer).children()[i]).children()[1]);
+  var $thisInputBar = $($($($thisInputDiv).children()[0]).children()[0]);
+  if (localStorage.getItem($($containerBlock.children()[i]).attr("value"))) {
+    $($thisInputDiv).val(
+      localStorage.getItem($($containerBlock.children()[i]).attr("value"))
+    );
   }
-
-  var newStuff = `<container class="row" id='hour-${i}'>
-            <div class="col-2"></div>
-            <div class="hour w-25 p-4 col-1">${timeSlot}</div>
-            <textarea class="description w-50 p-4 col-6 ${currentState} hour-${i}"></textarea>
-            <button class="saveBtn w-25 p-4 col-1 fas fa-save fa-2x"></button>
-            <div class="col-2">
-            </div>  
-        </container>
-        <p></p>`;
-  $("#containAll").append(newStuff);
-}
-$(".saveBtn").on("click", function () {
-  var value = $(this).siblings(".description").val();
-  var time = $(this).parent().attr("id");
-  localStorage.setItem(time, value);
-});
-
-for (var i = 8; i < 20; i++) {
-  $(`.hour-${i}`).val(localStorage.getItem(`hour-${i}`));
-}
