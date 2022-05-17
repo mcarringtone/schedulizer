@@ -21,3 +21,12 @@ for (var i = 0; i <= 8; i++) {
     $thisInputBar.addClass("future");
   }
 }
+$(".saveBtn").on("click", function (event) {
+  event.preventDefault();
+  var $input = $(
+    $($($(this).parent()[0]).siblings()[1]).children()[0]
+  ).children()[0];
+  var $timeMethod = $($($(this).parent()[0]).parents()[0]).attr("value");
+  // console.log($($thisInput).val(), $thisTimeVal)
+  localStorage.setItem($timeMethod, $($input).val());
+});
